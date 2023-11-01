@@ -1,0 +1,17 @@
+from collections import defaultdict
+
+def solution(nums, k):
+    indexer = defaultdict(list)
+    n = 0
+    for num in nums: 
+        indexer[num].append(n)
+        n += 1
+    for num in indexer:
+        indexes = indexer[num] 
+        if len(indexes) > 1: 
+            while len(indexes) >= 2:
+                if abs(indexes[0]-indexes[1]) <= k: 
+                    return True
+                else:
+                    indexes.pop(0)
+    return False

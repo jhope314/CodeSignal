@@ -1,0 +1,31 @@
+from collections import defaultdict
+
+def solution(strings, patterns):
+    # for pattern[0] and string[0], string[0]: pattern[0]
+    # check if current value == previous value
+    patternLogger = defaultdict(str)
+    n = 0
+    for pattern in patterns: 
+        if n == 0: 
+            patternLogger[pattern] += strings[n]
+            n += 1
+        # check if prev pattern == current pattern. if yes, then prev string needs to equal current string. if true, continue. if not, return false.
+        elif pattern == patterns[n-1]:
+            if strings[n] == strings[n-1]:
+                n += 1
+            else: 
+                return False
+        # check if repeating pattern exists. if yes, check that value associated with pattern == current string. if yes, n+=1. if no, return false. 
+        elif pattern in patternLogger: 
+            if patternLogger[pattern] == strings[n]:
+                n += 1
+            else: 
+                return False
+        # check if new pattern. if yes, check that current string does not exist as a value in current dictionary. if it does, return false. if it does not, add new dictionary entry. 
+        else: 
+            for i in patternLogger: 
+                if strings[n] == patternLogger[i]: 
+                    return False
+            patternLogger[pattern] += strings[n]
+            n += 1
+    return True

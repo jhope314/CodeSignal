@@ -1,0 +1,33 @@
+from collections import defaultdict
+
+def solution(crypt, solution):
+    mapper = defaultdict(lambda: "None")
+    for code in solution: 
+        mapper[code[0]] = code[1]
+    print(mapper)
+    word1 = crypt[0]
+    word2 = crypt[1]
+    word3 = crypt[2]
+    if mapper[word1[0]] == "0" and len(word1) > 1: 
+        return False
+    elif mapper[word2[0]] == "0" and len(word2) > 1:
+        return False
+    elif mapper[word3[0]] == "0" and len(word3) > 1:
+        return False
+    else:
+        word1Code = ""
+        word2Code = ""
+        word3Code = ""
+        for letter in range(len(word1)):
+            word1Code += mapper[word1[letter]]
+        print(word1Code)
+        for letter in range(len(word2)):
+            word2Code += mapper[word2[letter]]
+        print(word2Code)
+        for letter in range(len(word3)):
+            word3Code += mapper[word3[letter]]
+        print(word3Code) 
+        if int(word1Code) + int(word2Code) == int(word3Code):
+            return True
+        else: 
+            return False
